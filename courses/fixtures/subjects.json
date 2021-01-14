@@ -1,0 +1,55 @@
+[
+{
+  "model": "courses.subject",
+  "pk": 1,
+  "fields": {
+    "title": "Mathematics",
+    "slug": "mathematics"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 2,
+  "fields": {
+    "title": "Music",
+    "slug": "music"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 3,
+  "fields": {
+    "title": "Physics",
+    "slug": "physics"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 4,
+  "fields": {
+    "title": "Programming",
+    "slug": "programming"
+  }
+},
+{
+  "model": "courses.course",
+  "pk": 1,
+  "fields": {
+    "owner": 1,
+    "subject": 4,
+    "title": "Requirments Analysis",
+    "slug": "requirments-analysis",
+    "overview": "Network/LAN connection (TCP/IP) for communication with Matching Server or MegaMatcher Accelerator unit(s).\r\nNeurotechnology SDKs client-side components can be used without network if they are used only for data collection.\r\nCommunication is not encrypted therefore, if communication must be secured, we would recommend to use a dedicated\r\nnetwork (not accessible outside the system) or a secured network (such as VPN; VPN must be configured using operating\r\nsystem or third party tools).",
+    "created": "2021-01-14T18:55:57.565Z"
+  }
+},
+{
+  "model": "courses.module",
+  "pk": 1,
+  "fields": {
+    "course": 1,
+    "title": "Module 1",
+    "description": "Network/LAN connection (TCP/IP) for communication with Matching Server or MegaMatcher Accelerator unit(s).\r\nNeurotechnology SDKs client-side components can be used without network if they are used only for data collection.\r\nCommunication is not encrypted therefore, if communication must be secured, we would recommend to use a dedicated\r\nnetwork (not accessible outside the system) or a secured network (such as VPN; VPN must be configured using operating\r\nsystem or third party tools)."
+  }
+}
+]
