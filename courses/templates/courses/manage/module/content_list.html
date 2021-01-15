@@ -5,7 +5,7 @@
     {% with course=module.course %}
         <h1>Course "{{ course.title }}"</h1>
         <div class="contents">
-            <h1>Modules</h1>
+            <h3>Modules</h3>
             <ul class="modules">
                 {% for m in course.modules.all %}
                     <li data-id="{{ m.id }}" {% if m == module %} class="selected" {% endif %}>
