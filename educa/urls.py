@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from courses.views import example
 from django.contrib.auth import views as auth_view
 
 urlpatterns = [
