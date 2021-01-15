@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateResponseMixin, View
 
 from courses.forms import ModuleFormSet
-from courses.models import Course, Module
+from courses.models import Course, Module, Content
 
 
 class OwnerMixin(object):
@@ -101,11 +101,30 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         print(kwargs)
         self.module = get_object_or_404(
             Module,
-            id=kwargs['pk'],
+            id=kwargs['module_id'],
             course__owner=request.user
         )
         self.model = self.get_model(kwargs['model_name'])
-        if kwargs['pk']:
-            self.obj = get_object_or_404(self.model, id=kwargs['pk'], owner=request.user)
+        if kwargs['id']:
+            self.obj = get_object_or_404(self.model, id=kwargs['id'], owner=request.user)
 
         return super(ContentCreateUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, module_id, model_name, id=None):
+        form = self.get_form(self.model, instance=self.obj)
+        return self.render_to_response({'form': form, 'object': self.obj})
+
+    def post(self, request, module_id, model_name, id=None):
+        form = self.get_form(self.model, instance=self.obj, data=request.POST, files=request.FILE)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.owner = request.user
+            obj.save()
+
+            if not id:
+                Content.objects.create(module=self.module, item=obj)
+
+            return redirect('module_content_list', self.module.id)
+
+        return self.render_to_response({'form': form, 'object': self.obj})
+
