@@ -97,25 +97,25 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         Form = modelform_factory(model, exclude=['owner', 'order', 'created', 'updated'])
         return Form(*args, **kwargs)
 
-    def dispatch(self, request, *args, **kwargs):
-        print(kwargs)
+    def dispatch(self, request, id=None, *args, **kwargs):
         self.module = get_object_or_404(
             Module,
             id=kwargs['module_id'],
             course__owner=request.user
         )
+        print(kwargs)
         self.model = self.get_model(kwargs['model_name'])
-        if kwargs['id']:
-            self.obj = get_object_or_404(self.model, id=kwargs['id'], owner=request.user)
+        if id:
+            self.obj = get_object_or_404(self.model, id=id, owner=request.user)
 
-        return super(ContentCreateUpdateView, self).dispatch(request, *args, **kwargs)
+        return super(ContentCreateUpdateView, self).dispatch(request, id, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(self.model, instance=self.obj)
         return self.render_to_response({'form': form, 'object': self.obj})
 
-    def post(self, request, *args, **kwargs):
-        form = self.get_form(self.model, instance=self.obj, data=request.POST, files=request.FILE)
+    def post(self, request, id=None, *args, **kwargs):
+        form = self.get_form(self.model, instance=self.obj, data=request.POST, files=request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.owner = request.user

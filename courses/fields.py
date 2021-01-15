@@ -19,7 +19,7 @@ class OrderField(models.PositiveIntegerField):
 
             except ObjectDoesNotExist:
                 value = 0
-                setattr(model_instance, self.attname, value)
-                return True
+            setattr(model_instance, self.attname, value)
+            return value
         else:
             return super().pre_save(model_instance, add)
