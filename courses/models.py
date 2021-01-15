@@ -58,6 +58,9 @@ class Module(models.Model):
     def __str__(self):
         return f"{self.order}. {self.title}"
 
+    class Meta:
+        ordering = ['order']
+
 
 class Content(models.Model):
     module = models.ForeignKey(
@@ -79,6 +82,10 @@ class Content(models.Model):
     )
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
+    order = OrderField(blank=True, for_fields=['module'])
+
+    class Meta:
+        ordering = ['order']
 
 
 class ItemBase(models.Model):
@@ -112,4 +119,3 @@ class Image(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField()
-
