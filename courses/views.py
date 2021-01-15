@@ -110,11 +110,11 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
         return super(ContentCreateUpdateView, self).dispatch(request, *args, **kwargs)
 
-    def get(self, request, module_id, model_name, id=None):
+    def get(self, request, *args, **kwargs):
         form = self.get_form(self.model, instance=self.obj)
         return self.render_to_response({'form': form, 'object': self.obj})
 
-    def post(self, request, module_id, model_name, id=None):
+    def post(self, request, *args, **kwargs):
         form = self.get_form(self.model, instance=self.obj, data=request.POST, files=request.FILE)
         if form.is_valid():
             obj = form.save(commit=False)
