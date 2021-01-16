@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', auth_view.LoginView.as_view(), name='login'),
     path('accounts/logout', auth_view.LogoutView.as_view(), name='logout'),
-    path('course/', include('courses.urls'))
+    path('course/', include('courses.urls')),
+    path('students/', include('students.urls'))
 ]
