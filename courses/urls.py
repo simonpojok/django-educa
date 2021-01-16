@@ -18,6 +18,6 @@ urlpatterns = [
     path('content/<int:id>delete/', ContentDeleteView.as_view(), name='module_content_delete'),
     path('module/<int:module_id>/', ModuleContentListView.as_view(), name='module_content_list'),
     path('', CourseListView.as_view(), name='course_list'),
-    path('subject/<slug:subject>/', CourseListView.as_view(), 'course_list_subject'),
-    path('<slug:slug>/', CourseDetailView.as_view(), name='course_detail')
+    path('<slug:slug>/', CourseDetailView.as_view(), name='course_detail'),
+    path('subject/<slug:subject>/', CourseListView.as_view(), name='course_list_subject')
 ]
