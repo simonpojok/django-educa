@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView, ListView, DetailView
 
@@ -53,7 +52,7 @@ class StudentCourseDetailView(DetailView):
 
     def get_queryset(self):
         qs = super(StudentCourseDetailView, self).get_queryset()
-        return qs.filter(student__in=[self.request.user])
+        return qs.filter(students__in=[self.request.user])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,4 +65,3 @@ class StudentCourseDetailView(DetailView):
             context['module'] = course.modules.all()[0]
 
         return context
-
